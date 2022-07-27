@@ -68,7 +68,7 @@ exports.changePassword = async (req, res) => {
       return res.json({ message: "Some Error Occured", error: errors });
     }
 
-    const {password } = req.body;
+    const { password } = req.body;
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({ _id: decoded.id });
@@ -83,8 +83,8 @@ exports.changePassword = async (req, res) => {
   }
 };
 
-
-exports.requireAuth = async (req, res, next) => {
+// Validates whether a user is loggedIn or Not, for protecting routes
+exports.isAuthenticated = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

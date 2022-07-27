@@ -10,9 +10,9 @@ app.use(express.json());
 
 
 app.use('/',homeRoute);     // Home Route
-
 app.use('/auth',authRoute); // Authentication Route
-app.use('api/v1',apiV1Routes);  // Api V1 Routes
+app.use('/api/v1',apiV1Routes);  // api_v1 routes
+
 
 
 mongoose.connect(process.env.MONGO_URI, () => {

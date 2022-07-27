@@ -68,8 +68,8 @@ exports.changePassword = async (req, res) => {
       return res.json({ message: "Some Error Occured", error: errors });
     }
 
-    const { Authorizatioin, password } = req.body;
-    const token = Authorizatioin.split(" ")[1];
+    const {password } = req.body;
+    const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({ _id: decoded.id });
     if (!user) {
@@ -78,6 +78,22 @@ exports.changePassword = async (req, res) => {
     const newPassword = await bcrypt.hash(password, 10);
     await User.updateOne({ _id: decoded.id }, { password: newPassword });
     return res.json({ message: "Password Reset Successfully" });
+  } catch (error) {
+    return res.json({ message: "Some Error Occured", error: error.message });
+  }
+};
+
+
+exports.requireAuth = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findOne({ _id: decoded.id });
+    if (!user) {
+      throw new Error("Invalid Token");
+    }
+    req.user = user;
+    next();
   } catch (error) {
     return res.json({ message: "Some Error Occured", error: error.message });
   }

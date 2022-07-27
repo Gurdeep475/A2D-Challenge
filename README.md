@@ -1,8 +1,6 @@
 # A2D-Challenge
 
-## Jobs CRUD Operation API
-## Users can perform CRUD operations on the Jobs Database
-## They are needed to be authenticated before performing CRUD operations on Database
+Jobs CRUD Operation API
 
 # How to Setup the Server
 1. Clone the repository

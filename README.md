@@ -12,7 +12,7 @@ Jobs CRUD Operation API
 1. Create a new user
 2. Login with the new user
 3. Get the token from the response
-4. Set the token in the Authorization header as Bearer <token> for every request
+4. Set the token in the Authorization header as "Bearer token" for every request
 
 # Authenication API
 1. /auth/login - POST - Login with username and password
